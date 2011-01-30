@@ -10,7 +10,7 @@ thresh = 50   # meters
 
 stops = json.load(open('stops'))
 
-dt = [('bus_n', '5a'), ('time', 'u8'), ('lat', 'f'), ('lon', 'f')]
+dt = [('bus_n', '5a'), ('route', '5a'), ('time', 'u8'), ('lat', 'f'), ('lon', 'f')]
 data = numpy.genfromtxt(sys.stdin, dtype=dt)
 
 data['lat'] *= pi/180

@@ -8,7 +8,7 @@ Rearth = 6400e3  # meters
 bin_dist = 10  # meters
 bin_width = bin_dist / Rearth * 180 / pi  # degrees
 
-dt = [('bus_n', '5a'), ('time', 'u8'), ('lat', 'f'), ('lon', 'f')]
+dt = [('bus_n', '5a'), ('route', '5a'), ('time', 'u8'), ('lat', 'f'), ('lon', 'f')]
 d = np.genfromtxt('h', dtype=dt)
 if bus_ns:
         mask = np.zeros_like(d['time'])
