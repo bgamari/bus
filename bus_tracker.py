@@ -29,5 +29,5 @@ for b in d['unitList']:
                 os.makedirs(p)
 
         f = open(os.path.join(p, datetime.date.today().strftime('%Y%m%d')), 'a')
-        f.write('%5s\t%20d\t%2.10f\t%2.10f\n' % (bus_n, time, lat, lon))
+        f.write('%5s\t%5s\t%20d\t%2.10f\t%2.10f\n' % (bus_n, route, time, lat, lon))
 
