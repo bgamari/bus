@@ -6,7 +6,7 @@ from math import pi
 import sys
 from datetime import datetime
 
-thresh = 20   # meters
+thresh = 50   # meters
 
 stops = json.load(open('stops'))
 
@@ -18,7 +18,7 @@ data['lon'] *= pi/180
 
 def distance(lat1, lon1, lat2, lon2):
         """ Compute distance between two points with haversine formula.
-            Angles are of course in radians, distance in meters """
+            Angles are of course in radians, distance in kilometers """
         from numpy import sin, cos, arctan2, sqrt
         R = 6371   # kilometers
         dlat = lat2 - lat1
@@ -28,8 +28,7 @@ def distance(lat1, lon1, lat2, lon2):
         return R*c
 
 for name,lat,lon in stops.values():
-        lat *= pi/180
-        lon *= pi/180
+        lat *= pi/180; lon *= pi/180
         dist = distance(data['lat'], data['lon'], lat, lon)
         arrivals = dist < thresh*1e-3
         if any(arrivals):
