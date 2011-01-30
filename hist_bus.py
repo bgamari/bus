@@ -3,6 +3,7 @@
 from matplotlib import pyplot as pl
 import numpy as np
 from numpy import min, max, pi
+import sys
 
 route = '30'
 plot_stops = False
@@ -11,7 +12,7 @@ bin_dist = 10  # meters
 bin_width = bin_dist / Rearth * 180 / pi  # degrees
 
 dt = [('bus_n', '5a'), ('route', '5a'), ('time', 'u8'), ('lat', 'f'), ('lon', 'f')]
-d = np.genfromtxt('h', dtype=dt)
+d = np.genfromtxt(sys.stdin, dtype=dt)
 if route:
         d = d[d['route'] == route]
 
