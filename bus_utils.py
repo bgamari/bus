@@ -11,7 +11,13 @@ Rearth = 6371e3  # meters
 
 def read_bus_data(f=sys.stdin):
         dt = [('bus_n', '5a'), ('route', '5a'), ('time', 'u8'), ('lat', 'f'), ('lon', 'f')]
-        return np.genfromtxt(f, dtype=dt)
+        data = np.genfromtxt(f, dtype=dt)
+        return sanitize_data(data)
+
+def sanitize_data(data):
+        lat,lon = data['lat'], data['lon']
+        return data[np.logical_and(np.logical_and(lon > 72.35, lon < 72.55),
+                                   np.logical_and(lat > 42.30, lat < 42.45))]
 
 def latlon_to_3vec(v):
         """ Convert a record array of lat/lons in degrees into an array of
