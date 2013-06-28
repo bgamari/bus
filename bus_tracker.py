@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 
 import xml.etree.ElementTree as ET
 from urllib2 import urlopen
@@ -7,11 +7,14 @@ from time import time
 import os.path
 
 data_path = os.path.expanduser('~/bus/data')
-url = 'http://uts.pvta.com:81/InfoPoint/map/GetVehicleXml.ashx?RouteId=%s'
-routes = ['30', '31', '38', '39', '45', '46']
+uts_url = 'http://uts.pvta.com:81/InfoPoint/map/GetVehicleXml.ashx?RouteId=%s'
+ntf_url = 'http://ntf.pvta.com:81/InfoPoint/map/GetVehicleXml.ashx?RouteId=%s'
+routes = {}
+routes.update({ r: uts_url%r for r in ['30', '31', '38', '39', '45', '46'] })
+routes.update({ r: ntf_url%r for r in ['B43', 'R41', 'M40'] })
 
-def fetch_route_vehicles(route):
-        f = urlopen(url % route)
+def fetch_route_vehicles(url):
+        f = urlopen(url)
         d = ET.fromstring(f.read())
 
         vehicles = []
@@ -22,8 +25,8 @@ def fetch_route_vehicles(route):
 
         return vehicles
 
-for route in routes:
-        vehicles = fetch_route_vehicles(route)
+for route,url in routes.items():
+        vehicles = fetch_route_vehicles(url)
         t = time()
 
         p = os.path.join(data_path, 'route%s' % route)
